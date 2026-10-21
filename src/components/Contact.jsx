@@ -1,42 +1,37 @@
-import { Mail, Download } from 'lucide-react'
-import Section from './Section'
-import SocialIcon from './SocialIcons'
 import { links, profile } from '../data'
 
-const contacts = [
-  { label: 'Email', value: links.email, href: `mailto:${links.email}`, icon: <Mail size={20} /> },
-  { label: 'LinkedIn', value: 'aishwarya-vollala', href: links.linkedin, icon: <SocialIcon name="linkedin" /> },
-  { label: 'GitHub', value: 'aishwaryaV007', href: links.github, icon: <SocialIcon name="github" /> },
-  { label: 'Instagram', value: '_aishwarya_14_07_', href: links.instagram, icon: <SocialIcon name="instagram" /> },
+const profiles = [
+  { label: 'LinkedIn', handle: 'aishwarya-vollala', href: links.linkedin },
+  { label: 'GitHub', handle: 'aishwaryaV007', href: links.github },
+  { label: 'Instagram', handle: '_aishwarya_14_07_', href: links.instagram },
 ]
 
 function Contact() {
   return (
-    <Section id="contact" title="Contact">
-      <p className="contact-intro">
-        I'm open to internships and project collaborations. The quickest way to reach me is email.
-      </p>
-      <div className="contact-grid">
-        {contacts.map((c) => (
-          <a
-            key={c.label}
-            href={c.href}
-            className="card contact-card"
-            target={c.href.startsWith('mailto') ? undefined : '_blank'}
-            rel="noreferrer"
-          >
-            <span className="contact-icon">{c.icon}</span>
-            <span>
-              <span className="contact-label">{c.label}</span>
-              <span className="contact-value">{c.value}</span>
-            </span>
-          </a>
-        ))}
+    <section id="contact" className="section section-alt">
+      <div className="container">
+        <h2 className="section-title">Contact</h2>
+        <p className="contact-lead">Email is the fastest way to reach me.</p>
+        <a href={`mailto:${links.email}`} className="contact-email">
+          {links.email}
+        </a>
+
+        <ul className="contact-profiles">
+          {profiles.map((p) => (
+            <li key={p.label}>
+              <a href={p.href} target="_blank" rel="noreferrer">
+                <span className="contact-label">{p.label}</span>
+                <span className="contact-handle">{p.handle}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <a href={profile.resume} className="button button-primary" download>
+          Download resume (PDF)
+        </a>
       </div>
-      <a href={profile.resume} className="button button-primary contact-resume" download>
-        <Download size={18} /> Download resume
-      </a>
-    </Section>
+    </section>
   )
 }
 

@@ -1,67 +1,73 @@
-import { ExternalLink, Lock } from 'lucide-react'
-import Section from './Section'
-import SocialIcon from './SocialIcons'
+import ProjectMedia from './ProjectMedia'
 import { projects } from '../data'
 
-function ProjectCard({ project }) {
+function layoutFor(project, sideIndex) {
+  if (!project.media) return 'project project-text'
+  // A row of phone screens needs the full width, so it sits below the text.
+  if (project.media.type === 'phone-gallery') return 'project project-stacked'
+  // Otherwise alternate the side the visual sits on.
+  return sideIndex % 2 === 1 ? 'project project-flip' : 'project'
+}
+
+function Project({ project, sideIndex }) {
+  const hasMedia = Boolean(project.media)
+  const layout = layoutFor(project, sideIndex)
+
   return (
-    <article className="card project-card">
-      <div className="card-top">
-        <div>
-          <h3 className="card-title">{project.name}</h3>
-          <p className="card-subtitle">{project.tagline}</p>
+    <article id={project.id} className={layout}>
+      <div className="project-body">
+        <p className="project-context">{project.context}</p>
+        <h3 className="project-name">{project.name}</h3>
+        <p className="project-summary">{project.summary}</p>
+
+        <h4 className="label">What I did</h4>
+        <ul className="project-did">
+          {project.did.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+
+        <h4 className="label">Built with</h4>
+        <p className="project-stack">{project.stack}</p>
+
+        <div className="project-links">
+          {project.live && (
+            <a href={project.live} className="button button-primary" target="_blank" rel="noreferrer">
+              Open live app
+            </a>
+          )}
+          {project.code && (
+            <a href={project.code} className="button button-secondary" target="_blank" rel="noreferrer">
+              View code on GitHub
+            </a>
+          )}
+          {project.note && <p className="project-note">{project.note}</p>}
         </div>
-        <span className="badge">{project.badge}</span>
       </div>
 
-      <p className="card-meta">
-        {project.role} · {project.dates}
-      </p>
-
-      <ul className="points">
-        {project.points.map((point) => (
-          <li key={point}>{point}</li>
-        ))}
-      </ul>
-
-      <div className="tags">
-        {project.stack.map((tech) => (
-          <span key={tech} className="tag">
-            {tech}
-          </span>
-        ))}
-      </div>
-
-      <div className="card-links">
-        {project.live && (
-          <a href={project.live} target="_blank" rel="noreferrer">
-            <ExternalLink size={16} /> Live site
-          </a>
-        )}
-        {project.code && (
-          <a href={project.code} target="_blank" rel="noreferrer">
-            <SocialIcon name="github" size={16} /> Code
-          </a>
-        )}
-        {project.note && (
-          <span className="card-note">
-            <Lock size={14} /> {project.note}
-          </span>
-        )}
-      </div>
+      {hasMedia && <ProjectMedia media={project.media} name={project.name} />}
     </article>
   )
 }
 
 function Projects() {
+  // Count only side-by-side projects when alternating, so the pattern stays even.
+  let sideCount = 0
+  const items = projects.map((project) => {
+    const isSide = project.media && project.media.type !== 'phone-gallery'
+    const sideIndex = isSide ? sideCount++ : 0
+    return { project, sideIndex }
+  })
+
   return (
-    <Section id="projects" title="Projects">
-      <div className="grid-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
+    <section id="work" className="section">
+      <div className="container">
+        <h2 className="section-title">Selected work</h2>
+        {items.map(({ project, sideIndex }) => (
+          <Project key={project.id} project={project} sideIndex={sideIndex} />
         ))}
       </div>
-    </Section>
+    </section>
   )
 }
 

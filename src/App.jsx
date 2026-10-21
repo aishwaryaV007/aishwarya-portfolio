@@ -2,25 +2,29 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
-import Leadership from './components/Leadership'
-import Skills from './components/Skills'
+import About from './components/About'
 import Contact from './components/Contact'
 import { profile } from './data'
 
 function App() {
   return (
     <>
+      <a href="#work" className="skip-link">
+        Skip to projects
+      </a>
       <Header />
       <main>
         <Hero />
         <Projects />
         <Experience />
-        <Leadership />
-        <Skills />
+        <About />
         <Contact />
       </main>
       <footer className="footer">
-        © {new Date().getFullYear()} {profile.name}
+        <div className="container footer-inner">
+          <span>© {new Date().getFullYear()} {profile.name}</span>
+          <span>This site uses no cookies, tracking or analytics.</span>
+        </div>
       </footer>
     </>
   )

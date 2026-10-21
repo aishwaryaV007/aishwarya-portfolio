@@ -1,36 +1,35 @@
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
 
 const navItems = [
-  { href: '#projects', label: 'Projects' },
+  { href: '#work', label: 'Work' },
   { href: '#experience', label: 'Experience' },
-  { href: '#leadership', label: 'Leadership' },
-  { href: '#skills', label: 'Skills' },
+  { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ]
 
 function Header() {
   const [open, setOpen] = useState(false)
+  const close = () => setOpen(false)
 
   return (
     <header className="header">
       <div className="container header-inner">
-        <a href="#top" className="logo" onClick={() => setOpen(false)}>
+        <a href="#top" className="logo" onClick={close}>
           Aishwarya Vollala
         </a>
 
         <button
           className="menu-button"
-          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="site-nav"
           onClick={() => setOpen(!open)}
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? 'Close' : 'Menu'}
         </button>
 
-        <nav className={open ? 'nav nav-open' : 'nav'}>
+        <nav id="site-nav" className={open ? 'nav nav-open' : 'nav'} aria-label="Main">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            <a key={item.href} href={item.href} onClick={close}>
               {item.label}
             </a>
           ))}
