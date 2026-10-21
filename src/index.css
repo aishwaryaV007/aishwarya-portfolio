@@ -166,11 +166,12 @@ table {
 .logo {
   font-weight: 700;
   text-decoration: none;
+  padding: 10px 0;
 }
 
 .nav {
   display: flex;
-  gap: 32px;
+  gap: 28px;
 }
 
 .nav a {
@@ -178,6 +179,7 @@ table {
   color: var(--muted);
   font-weight: 600;
   font-size: 0.95rem;
+  padding: 10px 2px;
 }
 
 .nav a:hover {
@@ -192,7 +194,7 @@ table {
   background: none;
   border: 1.5px solid var(--line);
   border-radius: var(--radius);
-  padding: 4px 12px;
+  padding: 8px 16px;
   color: var(--text);
   cursor: pointer;
 }
@@ -418,10 +420,22 @@ table {
   border-radius: var(--radius);
 }
 
+/* Each part of the meta line (problem, badge, dates) stays whole when it wraps. */
 .problem-meta {
+  display: flex;
+  flex-wrap: wrap;
   font-size: 0.8rem;
   color: var(--muted);
   letter-spacing: 0.02em;
+}
+
+.problem-meta span {
+  white-space: nowrap;
+}
+
+.problem-meta span:not(:last-child)::after {
+  content: '·';
+  margin: 0 8px;
 }
 
 .problem-name {
@@ -835,16 +849,19 @@ table {
     --space-section: 72px;
   }
 
-  .stats {
-    grid-template-columns: repeat(3, 1fr);
+  .stat {
+    padding: 14px 14px;
   }
 
-  .stat:nth-child(4) {
-    border-left: 0;
+  .stat-value {
+    font-size: 1.45rem;
   }
 
-  .stat:nth-child(n + 4) {
-    border-top: 1px solid var(--line);
+  /* One column on tablets: keep screenshots a comfortable size, centred. */
+  .media-browsers {
+    width: 100%;
+    max-width: 620px;
+    justify-self: center;
   }
 
   .problem-grid,
@@ -903,6 +920,11 @@ table {
     padding: 64px 0 56px;
   }
 
+  .hero-intro {
+    font-size: 1.02rem;
+  }
+
+  /* Two columns on a phone; the fifth stat spans the full row. */
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -920,6 +942,10 @@ table {
   .stat:first-child,
   .stat:nth-child(2) {
     border-top: 0;
+  }
+
+  .stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 
   .stat-value {

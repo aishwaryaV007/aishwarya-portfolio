@@ -58,7 +58,9 @@ function Problem({ project }) {
         </span>
         <div>
           <p className="problem-meta mono">
-            Problem {project.letter} · {project.badge} · {project.dates}
+            <span>Problem {project.letter}</span>
+            <span>{project.badge}</span>
+            <span>{project.dates}</span>
           </p>
           <h3 className="problem-name">{project.name}</h3>
           <p className="problem-tagline">{project.tagline}</p>
