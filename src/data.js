@@ -7,6 +7,8 @@ export const profile = {
   intro:
     'Co-founder and backend developer of CodeVault (patent filed), owning authentication, coding-platform integrations and the PostgreSQL data layer. I also build ML projects with PyTorch and XGBoost, and mobile apps with React Native. Computer Science (Data Science) student at SNIST, Hyderabad.',
   resume: '/Aishwarya_Vollala_Resume.pdf',
+  photo: '/aishwarya.webp',
+  photoCaption: 'Contestant · Hyderabad',
 }
 
 export const links = {

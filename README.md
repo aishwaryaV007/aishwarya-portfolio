@@ -10,6 +10,7 @@ Built with **React** and **Vite**, styled with plain CSS. The font (Source Sans 
 portfolio/
 ├── public/
 │   ├── Aishwarya_Vollala_Resume.pdf   # resume offered for download
+│   ├── aishwarya.webp                 # profile photo in the hero
 │   ├── projects/                      # real screenshots and the ExamShield app recording
 │   └── favicon.svg
 ├── src/

@@ -204,6 +204,33 @@ table {
   padding: 112px 0 88px;
 }
 
+/* Text on the left, photo on the right. */
+.hero-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-photo {
+  margin: 0;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg-alt);
+}
+
+.hero-photo figcaption {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
 .kicker {
   font-family: var(--mono);
   font-size: 0.85rem;
@@ -919,6 +946,11 @@ table {
     --space-section: 72px;
   }
 
+  .hero-top {
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 36px;
+  }
+
   .stat {
     padding: 14px 14px;
   }
@@ -992,6 +1024,25 @@ table {
 
   .hero-intro {
     font-size: 1.02rem;
+  }
+
+  /* On a phone the photo sits above the name, smaller. */
+  .hero-top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .hero-photo {
+    order: -1;
+  }
+
+  .hero-photo img {
+    width: 150px;
+  }
+
+  .hero-photo figcaption {
+    margin-top: 6px;
+    white-space: nowrap;
   }
 
   /* Two columns on a phone; the fifth stat spans the full row. */
@@ -1118,32 +1169,39 @@ table {
     scroll-behavior: smooth;
   }
 
-  /* Hero: each line fades up one after another on load. */
-  .hero .container > * {
+  /* Hero: text lines fade up one after another, then the photo, stats and links. */
+  .hero-text > *,
+  .hero-photo,
+  .hero .stats,
+  .hero .hero-links {
     animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  .hero .container > :nth-child(2) {
+  .hero-text > :nth-child(2) {
     animation-delay: 0.06s;
   }
 
-  .hero .container > :nth-child(3) {
+  .hero-text > :nth-child(3) {
     animation-delay: 0.12s;
   }
 
-  .hero .container > :nth-child(4) {
+  .hero-text > :nth-child(4) {
     animation-delay: 0.18s;
   }
 
-  .hero .container > :nth-child(5) {
+  .hero-text > :nth-child(5) {
     animation-delay: 0.24s;
   }
 
-  .hero .container > :nth-child(6) {
+  .hero-photo {
+    animation-delay: 0.15s;
+  }
+
+  .hero .stats {
     animation-delay: 0.3s;
   }
 
-  .hero .container > :nth-child(7) {
+  .hero .hero-links {
     animation-delay: 0.36s;
   }
 
