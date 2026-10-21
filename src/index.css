@@ -1,4 +1,5 @@
-/* Design tokens: warm neutral page, dark text, one accent (the navy from my resume). */
+/* Design tokens: warm neutral page, dark text, navy accent (from my resume),
+   and a contest-style green used only for "Accepted" verdicts. */
 :root {
   --bg: #f6f4ef;
   --bg-alt: #eeebe3;
@@ -8,8 +9,12 @@
   --line: #d9d4c8;
   --accent: #143c78;
   --accent-hover: #0e2c59;
+  --ok: #1a7f37;
+  --ok-bg: #e4f1e7;
+  --pending: #8a5a00;
 
-  --radius: 6px;
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --radius: 4px;
   --header-height: 60px;
   --space-section: 96px;
 
@@ -38,13 +43,15 @@ h3,
 h4,
 p,
 ul,
+ol,
 dl,
 dd,
 figure {
   margin: 0;
 }
 
-ul {
+ul,
+ol {
   padding: 0;
 }
 
@@ -58,10 +65,35 @@ a {
   color: inherit;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
 :focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .container {
@@ -88,10 +120,10 @@ a {
 /* ---------- Buttons ---------- */
 .button {
   display: inline-block;
-  padding: 11px 20px;
+  padding: 10px 18px;
   border-radius: var(--radius);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.98rem;
   text-decoration: none;
   border: 1.5px solid var(--accent);
 }
@@ -167,7 +199,15 @@ a {
 
 /* ---------- Hero ---------- */
 .hero {
-  padding: 128px 0 112px;
+  padding: 112px 0 88px;
+}
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
 }
 
 .hero-name {
@@ -180,21 +220,56 @@ a {
   font-size: clamp(1.4rem, 3vw, 2rem);
   color: var(--accent);
   font-weight: 600;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .hero-intro {
   font-size: 1.15rem;
   color: var(--muted);
-  max-width: 600px;
-  margin-top: 20px;
+  max-width: 640px;
+  margin-top: 18px;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 36px;
+  margin-top: 32px;
+}
+
+/* Contest-style stats strip */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-top: 48px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  border-left: 1px solid var(--line);
+}
+
+.stat:first-child {
+  border-left: 0;
+}
+
+.stat-value {
+  order: -1;
+  font-family: var(--mono);
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .hero-links {
@@ -202,7 +277,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 28px;
-  margin-top: 28px;
+  margin-top: 24px;
   font-size: 0.95rem;
 }
 
@@ -228,101 +303,309 @@ a {
 .section-title {
   font-size: 2rem;
   letter-spacing: -0.01em;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
 }
 
-.label {
+.section-index {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.col-title {
   font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-top: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
-/* ---------- Projects ---------- */
-.project {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 64px;
-  align-items: center;
-  padding: 56px 0;
+.col-title-spaced {
+  margin-top: 44px;
+}
+
+/* ---------- Problem list (overview table) ---------- */
+.problem-list {
+  margin-bottom: 72px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.problem-list th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding: 10px 16px;
   border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
 }
 
-.project:first-of-type {
-  padding-top: 0;
+.problem-list td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
 }
 
-.project:last-of-type {
+.problem-list tr:last-child td {
   border-bottom: 0;
-  padding-bottom: 0;
 }
 
-.project-flip .project-body {
-  order: 2;
-}
-
-/* Text-only project: the body spans a comfortable reading width. */
-.project-text {
-  grid-template-columns: minmax(0, 720px);
-}
-
-/* Text on the left, phone screens across the full width below. */
-.project-stacked {
-  grid-template-columns: 1fr;
-  gap: 40px;
-}
-
-.project-stacked .project-body {
-  max-width: 760px;
-}
-
-.project-context {
-  font-size: 0.95rem;
+.problem-list td:first-child {
+  width: 48px;
   font-weight: 600;
   color: var(--accent);
 }
 
-.project-name {
+.problem-link {
+  font-weight: 700;
+  color: var(--accent);
+  text-underline-offset: 4px;
+}
+
+.problem-sub {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.tag-list {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.verdict-chip {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ok);
+  background: var(--ok-bg);
+  padding: 3px 10px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+/* ---------- Problem ---------- */
+.problem {
+  padding: 64px 0;
+  border-top: 1px solid var(--line);
+}
+
+.problem-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.problem-letter {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
   font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+}
+
+.problem-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.problem-name {
+  font-size: 2.3rem;
   line-height: 1.15;
-  margin-top: 6px;
 }
 
-.project-summary {
-  font-size: 1.15rem;
-  margin-top: 10px;
+.problem-tagline {
+  color: var(--muted);
+  font-size: 1.1rem;
 }
 
-.project-did {
-  padding-left: 20px;
+.problem-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 56px;
+  align-items: start;
+}
+
+/* Phone screens need the full width, so they sit under the text. */
+.problem-stacked .problem-grid {
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.problem-stacked .problem-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 56px;
+}
+
+.field + .field {
+  margin-top: 24px;
+}
+
+.problem-stacked .field + .field {
+  margin-top: 0;
+}
+
+.problem-stacked .field {
+  margin-bottom: 24px;
+}
+
+.field-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.statement {
+  font-size: 1.08rem;
+}
+
+.constraints {
+  list-style: none;
   color: var(--muted);
 }
 
-.project-did li + li {
-  margin-top: 6px;
+.constraints li {
+  padding-left: 18px;
+  position: relative;
 }
 
-.project-stack {
+.constraints li::before {
+  content: '•';
+  position: absolute;
+  left: 2px;
+  color: var(--accent);
+}
+
+.constraints li + li {
+  margin-top: 4px;
+}
+
+.approach {
+  list-style: none;
+  counter-reset: step;
   color: var(--muted);
 }
 
-.project-links {
+.approach li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 34px;
+}
+
+.approach li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.approach li + li {
+  margin-top: 8px;
+}
+
+/* Each technology stays on one line; a dot separates them. */
+.stack {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.stack li {
+  white-space: nowrap;
+}
+
+.stack li:not(:last-child)::after {
+  content: '·';
+  margin: 0 10px;
+  color: var(--muted);
+}
+
+/* The last problem doesn't need extra space before the next section. */
+.problem:last-of-type {
+  padding-bottom: 0;
+}
+
+/* Verdict bar: "Judging…" turns into "Accepted" when the problem scrolls in. */
+.verdict-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 12px;
-  margin-top: 28px;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-top: 36px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ok);
+  border-radius: var(--radius);
+  background: var(--surface);
 }
 
-.project-note {
-  color: var(--muted);
+.verdict {
+  display: inline-grid;
+  font-weight: 600;
   font-size: 0.95rem;
 }
 
-/* Media */
+.verdict-judging,
+.verdict-accepted {
+  grid-area: 1 / 1;
+}
+
+.verdict-judging {
+  color: var(--pending);
+  visibility: hidden;
+}
+
+.verdict-accepted {
+  color: var(--ok);
+}
+
+.verdict-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.verdict-note {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* ---------- Media ---------- */
 .media figcaption {
   margin-top: 12px;
   font-size: 0.9rem;
@@ -344,13 +627,14 @@ a {
 }
 
 .browser-bar {
-  padding: 8px 14px;
+  padding: 7px 12px;
   border-bottom: 1px solid var(--line);
   background: var(--bg-alt);
 }
 
 .browser-url {
-  font-size: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
@@ -371,7 +655,7 @@ a {
 }
 
 .phone {
-  width: min(300px, 80vw);
+  width: min(290px, 80vw);
   border: 10px solid var(--text);
   border-radius: 28px;
   overflow: hidden;
@@ -391,65 +675,83 @@ a {
 }
 
 .phone-small {
-  width: min(240px, 30%);
+  width: min(230px, 30%);
   border-width: 7px;
   border-radius: 22px;
 }
 
-/* ---------- Experience and About ---------- */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+/* ---------- History ---------- */
+.submissions {
+  border: 1px solid var(--line);
+  background: var(--surface);
 }
 
-.col-title {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.submissions th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--muted);
-  margin-bottom: 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
 }
 
-.col-title-spaced {
-  margin-top: 40px;
+.submissions td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
 }
 
-.entry {
-  padding: 16px 0;
-  border-top: 1px solid var(--line);
+.submissions tr:last-child td {
+  border-bottom: 0;
 }
 
-.entry-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
+.submissions .when {
+  white-space: nowrap;
+  font-size: 0.85rem;
+  color: var(--accent);
+  width: 170px;
+}
+
+.submissions td:nth-child(2) {
+  width: 300px;
 }
 
 .entry-title {
   font-weight: 700;
 }
 
-.entry-date {
-  flex-shrink: 0;
-  font-size: 0.9rem;
+.entry-org {
+  display: block;
   color: var(--muted);
 }
 
-.entry-text {
-  color: var(--muted);
+.contests {
+  list-style: none;
+  border-top: 1px solid var(--line);
 }
 
-.entry-points {
-  padding-left: 20px;
-  margin-top: 6px;
-  color: var(--muted);
+.contests li {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
 }
 
-.entry-points li + li {
-  margin-top: 4px;
+/* ---------- About ---------- */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+
+.entry {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
 }
 
 .skills {
@@ -457,7 +759,7 @@ a {
 }
 
 .skill-row {
-  padding: 14px 0;
+  padding: 13px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -527,33 +829,41 @@ a {
   gap: 8px 24px;
 }
 
-/* ---------- Tablet and mobile ---------- */
+/* ---------- Tablet ---------- */
 @media (max-width: 900px) {
   :root {
     --space-section: 72px;
   }
 
-  .project,
-  .project-text {
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stat:nth-child(4) {
+    border-left: 0;
+  }
+
+  .stat:nth-child(n + 4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .problem-grid,
+  .problem-stacked .problem-body {
     grid-template-columns: 1fr;
     gap: 36px;
-  }
-
-  /* On one column, show the visual first, then the details. */
-  .project .media {
-    order: -1;
-  }
-
-  .project-flip .project-body {
-    order: 0;
   }
 
   .two-col {
     grid-template-columns: 1fr;
     gap: 48px;
   }
+
+  .submissions td:nth-child(2) {
+    width: auto;
+  }
 }
 
+/* ---------- Phone ---------- */
 @media (max-width: 640px) {
   :root {
     font-size: 17px;
@@ -590,15 +900,57 @@ a {
   }
 
   .hero {
-    padding: 72px 0 64px;
+    padding: 64px 0 56px;
   }
 
-  .entry-head {
-    flex-direction: column;
-    gap: 0;
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .project-links .button {
+  .stat {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 12px 16px;
+  }
+
+  .stat:nth-child(even) {
+    border-left: 1px solid var(--line);
+  }
+
+  .stat:first-child,
+  .stat:nth-child(2) {
+    border-top: 0;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .hide-sm {
+    display: none;
+  }
+
+  .problem-list td,
+  .problem-list th {
+    padding: 12px;
+  }
+
+  .problem-head {
+    gap: 16px;
+  }
+
+  .problem-letter {
+    width: 52px;
+    height: 52px;
+    font-size: 1.6rem;
+  }
+
+  .problem-name {
+    font-size: 1.9rem;
+  }
+
+  .verdict-links,
+  .verdict-links .button {
     width: 100%;
     text-align: center;
   }
@@ -611,35 +963,82 @@ a {
     border-width: 4px;
     border-radius: 14px;
   }
+
+  /* History table becomes stacked rows on a phone. */
+  .submissions thead {
+    display: none;
+  }
+
+  .submissions,
+  .submissions tbody,
+  .submissions tr,
+  .submissions td {
+    display: block;
+    width: auto;
+  }
+
+  .submissions tr {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .submissions tr:last-child {
+    border-bottom: 0;
+  }
+
+  .submissions td,
+  .submissions td:nth-child(2) {
+    padding: 0;
+    border: 0;
+    width: auto;
+  }
+
+  .submissions td + td {
+    margin-top: 4px;
+  }
+
+  .contests li {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
 
 /* ---------- Motion ----------
    Everything below runs only when the visitor hasn't asked for reduced motion.
-   With reduced motion, content simply appears and links jump instantly. */
+   With reduced motion, content simply appears, verdicts show "Accepted"
+   straight away, and links jump instantly. */
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
   }
 
-  /* Hero: name, role, intro and buttons fade up one after another on load. */
+  /* Hero: each line fades up one after another on load. */
   .hero .container > * {
     animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
   .hero .container > :nth-child(2) {
-    animation-delay: 0.08s;
+    animation-delay: 0.06s;
   }
 
   .hero .container > :nth-child(3) {
-    animation-delay: 0.16s;
+    animation-delay: 0.12s;
   }
 
   .hero .container > :nth-child(4) {
-    animation-delay: 0.24s;
+    animation-delay: 0.18s;
   }
 
   .hero .container > :nth-child(5) {
-    animation-delay: 0.32s;
+    animation-delay: 0.24s;
+  }
+
+  .hero .container > :nth-child(6) {
+    animation-delay: 0.3s;
+  }
+
+  .hero .container > :nth-child(7) {
+    animation-delay: 0.36s;
   }
 
   /* Scroll reveal: fade up once, the first time something comes into view. */
@@ -656,8 +1055,8 @@ a {
     transform: none;
   }
 
-  /* A project's visual arrives just after its text. */
-  .project .media.reveal {
+  /* A problem's visual arrives just after its text. */
+  .problem .media.reveal {
     transition-delay: 0.12s;
   }
 
@@ -670,11 +1069,43 @@ a {
     transition-delay: 0.3s;
   }
 
+  /* Verdict: shows "Judging…" for a moment, then "Accepted". */
+  .verdict-judging {
+    visibility: visible;
+    transition: opacity 0.25s ease 1s;
+  }
+
+  .verdict-accepted {
+    opacity: 0;
+    transition: opacity 0.25s ease 1.1s;
+  }
+
+  .verdict-bar {
+    border-left-color: var(--line);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-left-color 0.25s ease 1.1s;
+  }
+
+  .verdict-bar.is-visible {
+    border-left-color: var(--ok);
+  }
+
+  .verdict-bar.is-visible .verdict-judging {
+    opacity: 0;
+  }
+
+  .verdict-bar.is-visible .verdict-accepted {
+    opacity: 1;
+  }
+
   /* Small, quick hover feedback on things you can click. */
   .button,
   .nav a,
   .hero-links a,
-  .contact-handle {
+  .contact-handle,
+  .problem-list tr {
     transition:
       background-color 0.15s ease,
       color 0.15s ease,
@@ -688,6 +1119,10 @@ a {
   .button:active {
     transform: none;
   }
+}
+
+.problem-list tbody tr:hover {
+  background: var(--bg);
 }
 
 @keyframes rise {

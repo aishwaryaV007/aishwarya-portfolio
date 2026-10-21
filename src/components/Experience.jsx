@@ -1,46 +1,46 @@
-import { experience, leadership } from '../data'
+import { history, hackathons } from '../data'
 
+// "Submissions" table for internships and positions, plus a hackathon list.
 function Experience() {
   return (
-    <section id="experience" className="section section-alt">
+    <section id="history" className="section section-alt">
       <div className="container">
-        <h2 className="section-title reveal">Experience</h2>
+        <h2 className="section-title reveal">
+          <span className="mono section-index">02</span> History
+        </h2>
 
-        <div className="two-col">
-          <div className="reveal">
-            <h3 className="col-title">Internships</h3>
-            {experience.map((job) => (
-              <div key={job.org} className="entry">
-                <p className="entry-head">
-                  <span className="entry-title">
-                    {job.role}, {job.org}
-                  </span>
-                  <span className="entry-date">{job.dates}</span>
-                </p>
-                <ul className="entry-points">
-                  {job.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </div>
+        <h3 className="col-title mono reveal">Submissions · internships and roles</h3>
+        <table className="submissions reveal">
+          <thead>
+            <tr>
+              <th scope="col">When</th>
+              <th scope="col">Role</th>
+              <th scope="col">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            {history.map((row) => (
+              <tr key={row.what + row.where}>
+                <td className="mono when">{row.when}</td>
+                <td>
+                  <span className="entry-title">{row.what}</span>
+                  <span className="entry-org">{row.where}</span>
+                </td>
+                <td className="muted">{row.result}</td>
+              </tr>
             ))}
-          </div>
+          </tbody>
+        </table>
 
-          <div className="reveal">
-            <h3 className="col-title">Leadership</h3>
-            {leadership.map((item) => (
-              <div key={item.role} className="entry">
-                <p className="entry-head">
-                  <span className="entry-title">
-                    {item.role}, {item.org}
-                  </span>
-                  <span className="entry-date">{item.dates}</span>
-                </p>
-                <p className="entry-text">{item.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <h3 className="col-title mono col-title-spaced reveal">Contests · hackathons</h3>
+        <ul className="contests reveal">
+          {hackathons.map((h) => (
+            <li key={h.name}>
+              <span className="entry-title">{h.name}</span>
+              <span className="muted">{h.result}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

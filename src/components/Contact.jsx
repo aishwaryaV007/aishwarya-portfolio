@@ -10,7 +10,9 @@ function Contact() {
   return (
     <section id="contact" className="section section-alt">
       <div className="container">
-        <h2 className="section-title reveal">Contact</h2>
+        <h2 className="section-title reveal">
+          <span className="mono section-index">04</span> Contact
+        </h2>
         <div className="reveal">
           <p className="contact-lead">Email is the fastest way to reach me.</p>
           <a href={`mailto:${links.email}`} className="contact-email">

@@ -1,21 +1,31 @@
-import { profile, links } from '../data'
+import { profile, links, stats } from '../data'
 
 function Hero() {
   return (
     <section id="top" className="hero">
       <div className="container">
+        <p className="kicker">Problem set · 2026</p>
         <h1 className="hero-name">{profile.name}</h1>
         <p className="hero-role">{profile.role}</p>
         <p className="hero-intro">{profile.intro}</p>
 
         <div className="hero-actions">
-          <a href="#work" className="button button-primary">
-            See my work
+          <a href="#problems" className="button button-primary">
+            View problems
           </a>
           <a href={profile.resume} className="button button-secondary" download>
             Download resume (PDF)
           </a>
         </div>
+
+        <dl className="stats" aria-label="At a glance">
+          {stats.map((s) => (
+            <div key={s.label} className="stat">
+              <dt className="stat-label">{s.label}</dt>
+              <dd className="stat-value">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
 
         <ul className="hero-links" aria-label="Profiles">
           <li>

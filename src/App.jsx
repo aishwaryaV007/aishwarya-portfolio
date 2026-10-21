@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <a href="#work" className="skip-link">
+      <a href="#problems" className="skip-link">
         Skip to projects
       </a>
       <Header />

@@ -1,36 +1,116 @@
 import ProjectMedia from './ProjectMedia'
 import { projects } from '../data'
 
-function layoutFor(project, sideIndex) {
-  if (!project.media) return 'project project-text'
-  // A row of phone screens needs the full width, so it sits below the text.
-  if (project.media.type === 'phone-gallery') return 'project project-stacked'
-  // Otherwise alternate the side the visual sits on.
-  return sideIndex % 2 === 1 ? 'project project-flip' : 'project'
+// The contest-style overview table: one row per problem, linking to its section.
+function ProblemList() {
+  return (
+    <table className="problem-list reveal">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Problem</th>
+          <th scope="col" className="hide-sm">
+            Tags
+          </th>
+          <th scope="col">Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        {projects.map((p) => (
+          <tr key={p.id}>
+            <td className="mono">{p.letter}</td>
+            <td>
+              <a href={`#${p.id}`} className="problem-link">
+                {p.name}
+              </a>
+              <span className="problem-sub">{p.tagline}</span>
+            </td>
+            <td className="hide-sm">
+              <span className="tag-list mono">{p.tags.join(', ')}</span>
+            </td>
+            <td>
+              <span className="verdict-chip mono">Accepted</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
 }
 
-function Project({ project, sideIndex }) {
-  const hasMedia = Boolean(project.media)
-  const layout = layoutFor(project, sideIndex)
+function Field({ label, children }) {
+  return (
+    <div className="field">
+      <h4 className="field-label mono">{label}</h4>
+      {children}
+    </div>
+  )
+}
+
+function Problem({ project }) {
+  const stacked = project.media.type === 'phone-gallery'
 
   return (
-    <article id={project.id} className={layout}>
-      <div className="project-body reveal">
-        <p className="project-context">{project.context}</p>
-        <h3 className="project-name">{project.name}</h3>
-        <p className="project-summary">{project.summary}</p>
+    <article id={project.id} className={stacked ? 'problem problem-stacked' : 'problem'}>
+      <header className="problem-head reveal">
+        <span className="problem-letter mono" aria-hidden="true">
+          {project.letter}
+        </span>
+        <div>
+          <p className="problem-meta mono">
+            Problem {project.letter} · {project.badge} · {project.dates}
+          </p>
+          <h3 className="problem-name">{project.name}</h3>
+          <p className="problem-tagline">{project.tagline}</p>
+        </div>
+      </header>
 
-        <h4 className="label">What I did</h4>
-        <ul className="project-did">
-          {project.did.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+      <div className="problem-grid">
+        <div className="problem-body reveal">
+          <Field label="Statement">
+            <p className="statement">{project.statement}</p>
+          </Field>
 
-        <h4 className="label">Built with</h4>
-        <p className="project-stack">{project.stack}</p>
+          <Field label="Constraints">
+            <ul className="constraints">
+              {project.constraints.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+          </Field>
 
-        <div className="project-links">
+          <Field label={`My part · ${project.role}`}>
+            <ol className="approach">
+              {project.approach.map((a) => (
+                <li key={a}>{a}</li>
+              ))}
+            </ol>
+          </Field>
+
+          <Field label="Stack">
+            <ul className="stack mono">
+              {project.stack.map((tech) => (
+                <li key={tech}>{tech}</li>
+              ))}
+            </ul>
+          </Field>
+        </div>
+
+        <ProjectMedia media={project.media} name={project.name} />
+      </div>
+
+      <div className="verdict-bar reveal">
+        <span className="verdict mono">
+          <span className="sr-only">Verdict: Accepted</span>
+          <span className="verdict-judging" aria-hidden="true">
+            Judging…
+          </span>
+          <span className="verdict-accepted" aria-hidden="true">
+            ● Accepted
+          </span>
+        </span>
+
+        <div className="verdict-links">
           {project.live && (
             <a href={project.live} className="button button-primary" target="_blank" rel="noreferrer">
               Open live app
@@ -41,30 +121,23 @@ function Project({ project, sideIndex }) {
               View code on GitHub
             </a>
           )}
-          {project.note && <p className="project-note">{project.note}</p>}
+          {project.note && <span className="verdict-note">{project.note}</span>}
         </div>
       </div>
-
-      {hasMedia && <ProjectMedia media={project.media} name={project.name} />}
     </article>
   )
 }
 
 function Projects() {
-  // Count only side-by-side projects when alternating, so the pattern stays even.
-  let sideCount = 0
-  const items = projects.map((project) => {
-    const isSide = project.media && project.media.type !== 'phone-gallery'
-    const sideIndex = isSide ? sideCount++ : 0
-    return { project, sideIndex }
-  })
-
   return (
-    <section id="work" className="section">
+    <section id="problems" className="section">
       <div className="container">
-        <h2 className="section-title reveal">Selected work</h2>
-        {items.map(({ project, sideIndex }) => (
-          <Project key={project.id} project={project} sideIndex={sideIndex} />
+        <h2 className="section-title reveal">
+          <span className="mono section-index">01</span> Problems
+        </h2>
+        <ProblemList />
+        {projects.map((project) => (
+          <Problem key={project.id} project={project} />
         ))}
       </div>
     </section>
