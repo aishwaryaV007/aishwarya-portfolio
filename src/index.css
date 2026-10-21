@@ -216,10 +216,14 @@ table {
   margin: 0;
 }
 
+/* Circular photo: the 4:5 portrait is cropped to a circle around the face. */
 .hero-photo img {
   width: 100%;
   height: auto;
-  border-radius: var(--radius);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 22%;
+  border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--bg-alt);
 }
@@ -229,6 +233,7 @@ table {
   font-size: 0.78rem;
   color: var(--muted);
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .kicker {
@@ -1043,6 +1048,7 @@ table {
   .hero-photo figcaption {
     margin-top: 6px;
     white-space: nowrap;
+    text-align: left;
   }
 
   /* Two columns on a phone; the fifth stat spans the full row. */
