@@ -4,10 +4,10 @@ function Experience() {
   return (
     <section id="experience" className="section section-alt">
       <div className="container">
-        <h2 className="section-title">Experience</h2>
+        <h2 className="section-title reveal">Experience</h2>
 
         <div className="two-col">
-          <div>
+          <div className="reveal">
             <h3 className="col-title">Internships</h3>
             {experience.map((job) => (
               <div key={job.org} className="entry">
@@ -26,7 +26,7 @@ function Experience() {
             ))}
           </div>
 
-          <div>
+          <div className="reveal">
             <h3 className="col-title">Leadership</h3>
             {leadership.map((item) => (
               <div key={item.role} className="entry">

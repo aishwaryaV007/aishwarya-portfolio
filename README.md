@@ -18,17 +18,20 @@ portfolio/
 │   │   ├── Header.jsx        # sticky nav with a mobile menu
 │   │   ├── Hero.jsx          # name, focus, resume and profile links
 │   │   ├── Projects.jsx      # project layout (alternating, stacked or text-only)
-│   │   ├── ProjectMedia.jsx  # screenshot, phone screens, video or CodeVault flow diagram
+│   │   ├── ProjectMedia.jsx  # screenshots, phone screens or a screen recording
 │   │   ├── Experience.jsx    # internships and leadership
 │   │   ├── About.jsx         # education, achievements, skills
 │   │   └── Contact.jsx       # email and profiles
+│   ├── useReveal.js          # fades sections in the first time they scroll into view
 │   ├── App.jsx
 │   ├── main.jsx
-│   └── index.css             # design tokens at the top
+│   └── index.css             # design tokens at the top, motion at the bottom
 └── vite.config.js
 ```
 
-To change any text on the site, edit `src/data.js`. To add a project visual, put the file in `public/projects/` and set the project's `media` field.
+To change any text on the site, edit `src/data.js`.
+
+All animation is turned off for visitors who set "reduce motion" on their device; they see every section straight away. To add a project visual, put the file in `public/projects/` and set the project's `media` field.
 
 ## Run locally
 

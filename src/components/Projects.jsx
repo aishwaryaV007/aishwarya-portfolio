@@ -15,7 +15,7 @@ function Project({ project, sideIndex }) {
 
   return (
     <article id={project.id} className={layout}>
-      <div className="project-body">
+      <div className="project-body reveal">
         <p className="project-context">{project.context}</p>
         <h3 className="project-name">{project.name}</h3>
         <p className="project-summary">{project.summary}</p>
@@ -62,7 +62,7 @@ function Projects() {
   return (
     <section id="work" className="section">
       <div className="container">
-        <h2 className="section-title">Selected work</h2>
+        <h2 className="section-title reveal">Selected work</h2>
         {items.map(({ project, sideIndex }) => (
           <Project key={project.id} project={project} sideIndex={sideIndex} />
         ))}

@@ -330,7 +330,13 @@ a {
   text-align: center;
 }
 
-.media-browser {
+.media-browsers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.browser {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -348,9 +354,16 @@ a {
   color: var(--muted);
 }
 
-.media-browser img {
+.browser img {
   width: 100%;
   height: auto;
+}
+
+/* Two screenshots: the second sits slightly offset so they read as a pair. */
+.media-stack .browser:nth-child(2) {
+  margin-left: 12%;
+  margin-top: -12%;
+  position: relative;
 }
 
 .media-phone {
@@ -381,63 +394,6 @@ a {
   width: min(240px, 30%);
   border-width: 7px;
   border-radius: 22px;
-}
-
-/* CodeVault flow diagram */
-.media-flow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 36px 28px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-
-.flow-sources {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  width: 100%;
-  max-width: 380px;
-}
-
-.flow-sources li {
-  text-align: center;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  font-weight: 600;
-}
-
-.flow-step {
-  color: var(--muted);
-  font-size: 1.3rem;
-  line-height: 1;
-}
-
-.flow-hub {
-  width: 100%;
-  max-width: 380px;
-  text-align: center;
-  padding: 14px;
-  border-radius: var(--radius);
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-}
-
-.flow-target {
-  width: 100%;
-  max-width: 380px;
-  text-align: center;
-  padding: 12px;
-  border: 1.5px solid var(--accent);
-  border-radius: var(--radius);
-  color: var(--accent);
-  font-weight: 600;
 }
 
 /* ---------- Experience and About ---------- */
@@ -657,10 +613,91 @@ a {
   }
 }
 
+/* ---------- Motion ----------
+   Everything below runs only when the visitor hasn't asked for reduced motion.
+   With reduced motion, content simply appears and links jump instantly. */
 @media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+
+  /* Hero: name, role, intro and buttons fade up one after another on load. */
+  .hero .container > * {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero .container > :nth-child(2) {
+    animation-delay: 0.08s;
+  }
+
+  .hero .container > :nth-child(3) {
+    animation-delay: 0.16s;
+  }
+
+  .hero .container > :nth-child(4) {
+    animation-delay: 0.24s;
+  }
+
+  .hero .container > :nth-child(5) {
+    animation-delay: 0.32s;
+  }
+
+  /* Scroll reveal: fade up once, the first time something comes into view. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* A project's visual arrives just after its text. */
+  .project .media.reveal {
+    transition-delay: 0.12s;
+  }
+
+  /* SpotLet's phone screens appear one after another. */
+  .gallery .reveal:nth-child(2) {
+    transition-delay: 0.15s;
+  }
+
+  .gallery .reveal:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+
+  /* Small, quick hover feedback on things you can click. */
   .button,
   .nav a,
-  .hero-links a {
-    transition: background-color 0.15s ease, color 0.15s ease;
+  .hero-links a,
+  .contact-handle {
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+  }
+
+  .button:active {
+    transform: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

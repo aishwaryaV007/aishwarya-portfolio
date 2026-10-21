@@ -15,7 +15,7 @@ export const links = {
   instagram: 'https://www.instagram.com/_aishwarya_14_07_/',
 }
 
-// media.type: 'phone-gallery' | 'phone-video' | 'browser' | 'flow' (diagram of real integrations)
+// media.type: 'browser' (one or more screenshots) | 'phone-gallery' | 'phone-video'
 export const projects = [
   {
     id: 'codevault',
@@ -28,12 +28,25 @@ export const projects = [
       'Made 170+ commits to the platform, which I co-founded and co-built.',
     ],
     stack: 'Node.js, Express, PostgreSQL, Redis, React, Docker',
-    note: 'Code is private while the patent is pending.',
+    note: 'Code is private while the patent is pending, and the hosted app is offline right now.',
     media: {
-      type: 'flow',
-      sources: ['LeetCode', 'Codeforces', 'CodeChef', 'HackerRank'],
-      hub: 'CodeVault dashboard',
-      target: 'GitHub repository',
+      type: 'browser',
+      images: [
+        {
+          src: '/projects/codevault-dashboard.webp',
+          label: 'CodeVault · Dashboard',
+          alt: 'CodeVault dashboard: total problems solved, contests and accuracy, with stats from LeetCode, Codeforces, CodeChef and HackerRank.',
+          width: 1600,
+          height: 916,
+        },
+        {
+          src: '/projects/codevault-repositories.webp',
+          label: 'CodeVault · Repositories',
+          alt: 'CodeVault repositories page: each coding platform linked to a GitHub repository with its sync status.',
+          width: 1600,
+          height: 906,
+        },
+      ],
     },
   },
   {
@@ -95,9 +108,15 @@ export const projects = [
     code: 'https://github.com/aishwaryaV007/sarathi',
     media: {
       type: 'browser',
-      src: '/projects/sarathi.webp',
-      alt: 'Sarathi home page: a business description turned into a list of required approvals with the law behind each one.',
-      url: 'sarathi-lemon.vercel.app',
+      images: [
+        {
+          src: '/projects/sarathi.webp',
+          label: 'sarathi-lemon.vercel.app',
+          alt: 'Sarathi home page: a business description turned into a list of required approvals with the law behind each one.',
+          width: 1600,
+          height: 1000,
+        },
+      ],
     },
   },
 ]

@@ -5,8 +5,11 @@ import Experience from './components/Experience'
 import About from './components/About'
 import Contact from './components/Contact'
 import { profile } from './data'
+import { useReveal } from './useReveal'
 
 function App() {
+  useReveal()
+
   return (
     <>
       <a href="#work" className="skip-link">

@@ -4,10 +4,10 @@ function About() {
   return (
     <section id="about" className="section">
       <div className="container">
-        <h2 className="section-title">About</h2>
+        <h2 className="section-title reveal">About</h2>
 
         <div className="two-col">
-          <div>
+          <div className="reveal">
             <h3 className="col-title">Education</h3>
             <div className="entry">
               <p className="entry-title">{education.degree}</p>
@@ -26,7 +26,7 @@ function About() {
             ))}
           </div>
 
-          <div>
+          <div className="reveal">
             <h3 className="col-title">Skills</h3>
             <dl className="skills">
               {skills.map((group) => (
