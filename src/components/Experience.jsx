@@ -1,6 +1,42 @@
-import { history, hackathons } from '../data'
+import { history, hackathons, codingProfiles } from '../data'
 
-// "Submissions" table for internships and positions, plus a hackathon list.
+// Practice profiles: LeetCode shows real numbers, the others link to the profile.
+function CodingProfiles() {
+  return (
+    <>
+      <h3 className="col-title mono col-title-spaced reveal">Practice · coding profiles</h3>
+      <ul className="profiles reveal">
+        {codingProfiles.items.map((p) => (
+          <li key={p.platform} className={p.stats ? 'profile profile-main' : 'profile'}>
+            <div className="profile-head">
+              <span className="entry-title">{p.platform}</span>
+              <a href={p.href} target="_blank" rel="noreferrer" className="profile-link mono">
+                {p.handle}
+              </a>
+            </div>
+            {p.stats ? (
+              <dl className="profile-stats">
+                {p.stats.map((s) => (
+                  <div key={s.label}>
+                    <dt>{s.label}</dt>
+                    <dd className="mono">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <a href={p.href} target="_blank" rel="noreferrer" className="profile-open">
+                View profile
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+      <p className="profiles-note muted mono reveal">Numbers as of {codingProfiles.asOf}.</p>
+    </>
+  )
+}
+
+// "Submissions" table for internships and positions, practice profiles and hackathons.
 function Experience() {
   return (
     <section id="history" className="section section-alt">
@@ -31,6 +67,8 @@ function Experience() {
             ))}
           </tbody>
         </table>
+
+        <CodingProfiles />
 
         <h3 className="col-title mono col-title-spaced reveal">Contests · hackathons</h3>
         <ul className="contests reveal">

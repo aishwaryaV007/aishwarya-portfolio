@@ -180,6 +180,25 @@ export const history = [
   },
 ]
 
+// Practice profiles. Numbers were read from the platforms on 22 Oct 2026; update them here when they grow.
+export const codingProfiles = {
+  asOf: 'Oct 2026',
+  items: [
+    {
+      platform: 'LeetCode',
+      handle: 'AishwaryaVollala',
+      href: 'https://leetcode.com/u/AishwaryaVollala/',
+      stats: [
+        { value: '105', label: 'solved' },
+        { value: '43', label: 'medium' },
+        { value: '29', label: 'contests' },
+      ],
+    },
+    { platform: 'Codeforces', handle: '24311a6798', href: 'https://codeforces.com/profile/24311a6798' },
+    { platform: 'CodeChef', handle: 'aishwarya_070', href: 'https://www.codechef.com/users/aishwarya_070' },
+  ],
+}
+
 export const hackathons = [
   { name: 'Smart India Hackathon 2026', result: 'Built Sarathi with a team of 3' },
   { name: 'Smart India Hackathon 2025', result: 'Team leader of 6, cleared the internal round' },

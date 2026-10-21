@@ -3,6 +3,7 @@ import { links, profile } from '../data'
 const profiles = [
   { label: 'LinkedIn', handle: 'aishwarya-vollala', href: links.linkedin },
   { label: 'GitHub', handle: 'aishwaryaV007', href: links.github },
+  { label: 'LeetCode', handle: 'AishwaryaVollala', href: 'https://leetcode.com/u/AishwaryaVollala/' },
   { label: 'Instagram', handle: '_aishwarya_14_07_', href: links.instagram },
 ]
 

@@ -756,6 +756,76 @@ table {
   border-bottom: 1px solid var(--line);
 }
 
+/* Coding profiles: LeetCode card is wider and shows numbers; others are links. */
+.profiles {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.profile-head {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-link {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.profile-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+
+.profile-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-stats dd {
+  order: -1;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--accent);
+}
+
+.profile-stats dt {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.profile-open {
+  font-weight: 600;
+  color: var(--accent);
+  text-underline-offset: 3px;
+  padding: 4px 0;
+}
+
+.profiles-note {
+  margin-top: 10px;
+  font-size: 0.78rem;
+}
+
 /* ---------- About ---------- */
 .two-col {
   display: grid;
@@ -1026,6 +1096,16 @@ table {
   .contests li {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  /* LeetCode on its own row, the two link cards side by side below. */
+  .profiles {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .profile-main {
+    grid-column: 1 / -1;
   }
 }
 
