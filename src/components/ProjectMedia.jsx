@@ -1,14 +1,15 @@
 // The visual for each project: real screenshots or a real screen recording.
+// Visuals never use the scroll reveal, so they show even if that script never runs.
 function ProjectMedia({ media, name }) {
   if (media.type === 'browser') {
     return (
-      <div className={media.images.length > 1 ? 'media media-browsers media-stack reveal' : 'media media-browsers reveal'}>
+      <div className={media.images.length > 1 ? 'media media-browsers media-stack' : 'media media-browsers'}>
         {media.images.map((image) => (
           <figure key={image.src} className="browser">
             <div className="browser-bar">
               <span className="browser-url">{image.label}</span>
             </div>
-            <img src={image.src} alt={image.alt} loading="lazy" width={image.width} height={image.height} />
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
           </figure>
         ))}
       </div>
@@ -17,7 +18,7 @@ function ProjectMedia({ media, name }) {
 
   if (media.type === 'phone-video') {
     return (
-      <figure className="media media-phone reveal">
+      <figure className="media media-phone">
         <div className="phone">
           <video
             src={`${media.src}#t=0.5`}
@@ -38,8 +39,8 @@ function ProjectMedia({ media, name }) {
       <figure className="media media-gallery">
         <div className="gallery">
           {media.images.map((image) => (
-            <div key={image.src} className="phone phone-small reveal">
-              <img src={image.src} alt={image.alt} loading="lazy" width="378" height="848" />
+            <div key={image.src} className="phone phone-small">
+              <img src={image.src} alt={image.alt} width="378" height="848" />
             </div>
           ))}
         </div>

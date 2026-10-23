@@ -1219,20 +1219,6 @@ table {
     transform: none;
   }
 
-  /* A problem's visual arrives just after its text. */
-  .problem .media.reveal {
-    transition-delay: 0.12s;
-  }
-
-  /* SpotLet's phone screens appear one after another. */
-  .gallery .reveal:nth-child(2) {
-    transition-delay: 0.15s;
-  }
-
-  .gallery .reveal:nth-child(3) {
-    transition-delay: 0.3s;
-  }
-
   /* Verdict: shows "Judging…" for a moment, then "Accepted". */
   .verdict-judging {
     visibility: visible;
