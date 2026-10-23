@@ -695,6 +695,11 @@ table {
   justify-self: center;
 }
 
+/* The caption can be wider than the phone, so centre the phone under it too. */
+.media-phone .phone {
+  margin-inline: auto;
+}
+
 .phone {
   width: min(290px, 80vw);
   border: 10px solid var(--text);
